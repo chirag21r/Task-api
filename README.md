@@ -125,18 +125,5 @@ Server will start at `http://localhost:5000`
 
 ---
 
-## 🤝 Contributing
 
-Pull requests are welcome. For major changes, open an issue first to discuss what you'd like to change.
 
----
-
-## 👨‍💻 Author
-
-Made with ❤️ by [Chirag Raj](https://github.com/chirag21r)
-
----
-
-## 📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
