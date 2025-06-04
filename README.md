@@ -81,6 +81,14 @@ Server will start at `http://localhost:5000`
 | POST   | `/api/tasks`       | Create a new task     |
 | PUT    | `/api/tasks/:id`   | Update task by ID     |
 | DELETE | `/api/tasks/:id`   | Delete task by ID     |
+| GET    | `/api/users`       | Get all users         |
+| GET    | `/api/users/:id`   | Get users by ID       |
+| POST   | `/api/users`       | Create a new user     |
+| PUT    | `/api/users/:id`   | Update user by ID     |
+| DELETE | `/api/users/:id`   | Delete user by ID     |
+| GET   | `/api/users/:id/tasks` | Get all tasks of user |
+
+
 
 ---
 
