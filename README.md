@@ -37,27 +37,6 @@ Here's a simple block diagram showing how the system works:
 └────────────┘               └──────────────┘                 └────────────┘
 ```
 
----
-
-## 📁 Folder Structure
-
-```
-Task-api/
-│
-├── routes/             # Route definitions
-│   └── tasks.js
-│
-├── models/             # Mongoose models
-│   └── Task.js
-│
-├── controllers/        # Request handlers (optional)
-│
-├── .env                # Environment variables
-├── server.js           # Main entry point
-└── README.md
-```
-
----
 
 ## 🚀 Getting Started
 
