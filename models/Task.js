@@ -5,26 +5,35 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Title is required'],
     trim: true,
-    minlength: [1, 'Title cannot be empty'],
-    maxlength: [100, 'Title cannot exceed 100 characters']
+    maxlength: [100, 'Title cannot be more than 100 characters']
   },
   description: {
     type: String,
     trim: true,
-    maxlength: [500, 'Description cannot exceed 500 characters']
+    maxlength: [500, 'Description cannot be more than 500 characters']
   },
-  status: {
-    type: String,
-    enum: ['pending', 'in-progress', 'completed'],
-    default: 'pending'
+  completed: {
+    type: Boolean,
+    default: false
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: [true, 'User ID is required']
+    required: true
+  },
+  priority: {
+    type: String,
+    enum: ['low', 'medium', 'high'],
+    default: 'medium'
+  },
+  dueDate: {
+    type: Date
   }
 }, {
   timestamps: true
 });
+
+// Index for better query performance
+taskSchema.index({ userId: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Task', taskSchema);

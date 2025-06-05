@@ -1,0 +1,29 @@
+const crypto = require('crypto');
+require('dotenv').config();
+
+const ENCRYPTION_KEY = Buffer.from(process.env.ENCRYPTION_KEY, 'hex'); 
+const IV = Buffer.from(process.env.ENCRYPTION_IV, 'hex');
+
+function encryptJWT(jwtToken) {
+  const cipher = crypto.createCipheriv('aes-256-cbc', ENCRYPTION_KEY, IV);
+  let encrypted = cipher.update(jwtToken, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+}
+
+function decryptJWT(encryptedToken) {
+  const encryptedBuffer = Buffer.from(encryptedToken, 'hex');
+  const decipher = crypto.createDecipheriv('aes-256-cbc', ENCRYPTION_KEY, IV);
+  let decrypted = decipher.update(encryptedBuffer, undefined, 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+
+// Example:
+const originalToken = '9d6ab7dbdf8a3e91093768056395493c24afe59293e30232600b3e5860f983f763ae35adbc561e2c7f9d21f17818da1a460965947a5650096a726b8abda857717c5cd9e314407961db0f8f0162e9fc0fa7faac1c3225c1bfee4fc29d4541e6b0696f814555bc84742af66b575abfc2b443864b17b289750f6889ce4fcd040876820c1093b7fb88b9a8598c3634aae3604b97cca9e32f7a35e7405dafe15cfc7d52e077ee3df2f3e1957f9ae504e1ad40ab364e44a8ccdb3399bb5254b41f270e3692ce21358f741e009b364abfe1afb498eb74d6806c1de8333fcda18299e2b5a622cb0879abd2c42f237bc48e1fafcc10087d398a3275c3b3973970f695510abe09cdab295d6442b789909db6d7234cacd480b4f8cf32de5de4b22e43cb774a5f240eecc02b4f4bc2160d26fdc3f4ad991bc678406eb0fbc86491a802be6ed588f240b2992587168abf42b5ff3e4d05b669a72d12a80507e03c1a00bb9c3dcf154789406628a58b39439dd741bc050531f8f76b4e44e391c47e20ac877d25fb35e64ee32fde19cdeaa9340a3618f913a1cd2f4d1b76fb8703974a86bb1bc14b6544ddea67b78ce2e76eb850ef139728b4637b71218c589783f0894ea4f724266eda69c40288b5ff168ead96d7a4494847a34aa327dad0270e722721df9acf651939b1373844a90e0861761705f0f1d0b71a2b983e9625229c048a175899eafde87d81bb71e308aaf6e6e53011932d86148469da3be6eb24378ce64723d4d59ed916b1ff2faa377717c004b9fd80c1e34db0e0676540c9e86a6fe0bb5ed0001bd5c4e750b734c0a42cc07a8588bef6fd0970d6e7f6e0a627cf25a730ef11c20d98fa9bb180a67639dbacef76ea4100cc26ddb617f04c6662ce8553be514c377a2249aeebbfda39358b85d0868a0bd5b738ee64a220dec00c75b224f25504457fa2b88eea86bf922c886f1cfce42ee57bfa838be29d2673d251c3939410ac7b9c6e4982b12ac91915f35c2fcaa0fd53f31323415511df98acdb00bd0f430be88a21f6679c3f0a0e566b9e737fe5899b5812ecd050e18a22b88ddb7b0a5577023659e79ae793092dbba1f80caf524ba56f3e37cda9b70c032ad86b09e4461fa5141bd632aa90675a2591e15c3d0891e23e15a1c04eabdcd205113cd2012ede4fe4'; // your JWT token here
+const encrypted = encryptJWT(originalToken);
+const decrypted = decryptJWT(encrypted);
+
+console.log('Original:', originalToken);
+console.log('Encrypted:', encrypted);
+console.log('Decrypted:', decrypted);
